@@ -39,13 +39,25 @@ Airplane.prototype.land = function () {
         + It should return a string with `name` and `age`. Example: "Mary, 50"
 */
 
-function Person() {
-  
+function Person(name, age) {
+  this.name = name;
+  this.age = age;
+  this.stomach = [];
 }
 
+Person.prototype.eat = function(food) {
+  if (food === 'edible' && this.stomach.length <= 10) {
+    this.stomach.push(food);
+  }
+};
 
+Person.prototype.poop = function() {
+  this.stomach.forEach(() => { this.stomach.shift() });
+};
 
-
+Person.prototype.toString = function() {
+  return `${this.name}, ${this.age}`;
+};
 
 
 
@@ -63,8 +75,15 @@ function Person() {
         + The `drive` method should return a string "I ran out of fuel at x miles!" x being `odometer`.
 */
 
-function Car() {
-  
+function Car(model, milesPerGallon) {
+  this.model = model;
+  this.milesPerGallon = milesPerGallon;
+  this.tank = 0;
+  this.odometer = 0;
+}
+
+Car.prototype.fill = function(gallons) {
+  this.tank += gallons;
 }
 
 
@@ -75,18 +94,30 @@ function Car() {
     - Besides the methods on Person.prototype, babies have the ability to `.play()`:
         + Should return a string "Playing with x", x being the favorite toy.
 */
-function Baby() {
- 
+function Baby(name, age, favoriteToy) {
+  Person.call(this);
+  this.name = name;
+  this.age = age;
+  this.favoriteToy = favoriteToy;
 }
 
+Baby.prototype = Object.create(Person.prototype);
+
+Baby.prototype.play = function() {
+  return `Playing with ${this.favoriteToy}`;
+}
 
 /* 
   TASK 4
   In your own words explain the four principles for the "this" keyword below:
-  1. 
-  2. 
-  3. 
-  4. 
+  1. From my understanding, 'this' refers to the last object within its scope that precedes its use, and in the case of the global
+    scope, 'this' would then refer to the overall Window/Console Object that the global scope resides in.
+  2. My answer from principle 1 then extends to methods as this principle says that whatever object preceding the calling of a method
+    with the context of 'this' is the object that 'this' is referring to.
+  3. In the context of constructor functions, 'this' refers to the object that the constructor takes as an argument and returns.
+  4. Rather than having constructed objects use the data that they were constructed with, using the .call() or .apply() methods
+    can be used to override that data with data from another object that is directly inputted through either method, who would then 
+    be what 'this' refers to.
 */
 
 
