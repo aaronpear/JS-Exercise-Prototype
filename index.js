@@ -46,13 +46,13 @@ function Person(name, age) {
 }
 
 Person.prototype.eat = function(food) {
-  if (food === 'edible' && this.stomach.length <= 10) {
+  if (this.stomach.length < 10) {
     this.stomach.push(food);
   }
 };
 
 Person.prototype.poop = function() {
-  this.stomach.forEach(() => { this.stomach.shift() });
+  this.stomach = [];
 };
 
 Person.prototype.toString = function() {
